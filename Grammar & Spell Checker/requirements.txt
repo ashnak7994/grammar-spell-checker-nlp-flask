@@ -1,0 +1,5 @@
+Flask
+textblob
+language-tool-python
+
+

@@ -1,0 +1,121 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grammar & Spell Checker</title>
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 40px;
+        background-color: #f9fafb;
+        color: #333;
+    }
+
+    h1 {
+        text-align: center;
+        color: #4f46e5;
+    }
+
+    form {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    textarea {
+        width: 80%;
+        height: 150px;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 16px;
+        resize: vertical;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+        padding: 12px 25px;
+        margin-top: 15px;
+        background-color: #4f46e5;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #4338ca;
+    }
+
+    .result {
+        margin-top: 30px;
+        background-color: #e0f2fe;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 5px solid #3b82f6;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .result h3 {
+        margin-top: 0;
+        color: #2563eb;
+    }
+
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+</style>
+
+</head>
+<body>
+    <h1>Grammar & Spell Checker App</h1>
+    <form method="post">
+        <textarea name="text" placeholder="Enter text here..."></textarea><br>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if spelling_correction %}
+        <div class="result">
+            <h3>Spelling Correction:</h3>
+            <p>{{ spelling_correction }}</p>
+        </div>
+    {% endif %}
+
+    {% if corrected_text %}
+        <div class="result">
+            <h3>Final Grammar-Corrected Text:</h3>
+            <p>{{ corrected_text }}</p>
+        </div>
+    {% endif %}
+
+    {% if grammar_suggestions %}
+        <div class="result">
+            <h3>Grammar Suggestions:</h3>
+            <ul>
+                {% for suggestion in grammar_suggestions %}
+                    <li><strong>{{ suggestion.error }}</strong>: {{ suggestion.message }} ({{ suggestion.context }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>
